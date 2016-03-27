@@ -152,7 +152,7 @@ FlowRouter.route("/", {
 
 ## Full example: What about adding a loading gif?
 
-http://github.com/studiointeract/tracker-component-example
+[http://github.com/studiointeract/tracker-component-example](http://github.com/studiointeract/tracker-component-example)
 
 We got you're back on this one too! And have a look below, we've also added a select button to switch between selected car brand.
 
