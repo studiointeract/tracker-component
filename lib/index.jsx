@@ -1,4 +1,5 @@
 import React from 'react';
+import Tracker from 'meteor-standalone-tracker';
 
 const TrackerComponent = class extends React.Component {
   constructor(props) {

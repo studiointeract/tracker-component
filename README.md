@@ -1,6 +1,6 @@
 # Tracker.Component
 
-Current version 1.2.1
+Current version 1.3.0
 
 ## Features
 
@@ -8,7 +8,13 @@ Current version 1.2.1
 2. **Server Side Rendering** are supported, trough FlowRouter (SSR).
 3. **Lightweight** implementation, just check the Tracker.Component implementation in the `tracker-component.jsx` file, there is no magic going on behind the scenes, it's only **50 lines of code**.
 
-### Meteor 1.3
+### Meteor 1.3 (scroll down for 1.2)
+
+#### Install using NPM
+
+`npm i tracker-component`
+
+#### Install using Meteor
 
 `meteor add studiointeract:tracker-component`
 

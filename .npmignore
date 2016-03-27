@@ -1,0 +1,12 @@
+*.swp
+*~
+*.iml
+.*.haste_cache.*
+.DS_Store
+.idea
+.babelrc
+.eslintrc
+package.js
+main.js
+npm-debug.log
+lib
