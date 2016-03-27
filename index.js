@@ -1,1 +1,1 @@
-module.exports = require('./dist/tracker-component.js');
+module.exports = require('./dist/index.js');
