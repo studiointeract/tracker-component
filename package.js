@@ -14,7 +14,7 @@ Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use('ecmascript');
   api.use('tracker');
-  api.use('react');
+  api.use('react@0.14.3');
   api.addFiles('tracker-component.jsx');
   api.export('Tracker');
 });
