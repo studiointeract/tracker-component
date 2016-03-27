@@ -4,13 +4,15 @@ Current version 1.0.0
 
 ## Features
 
-1. **Easy to use**, using no componentDidMount or componentDidUpdate and no actual interaction with Tracker, we promise!
-2. **Server Side Rendering** supported, though make sure to use FlowRouter SSR.
-3. **Lightweight** implementation, just check the Tracker.Component implementation in the `tracker-component.jsx` file, there's no magic behind the scene (**45 lines of code**).
+1. **Easy to use**, manages everything with Tracker through the easy to use autorun and subscribe methods, you don't have to use have to manually setup the reactivity bindings, we promise!
+2. **Server Side Rendering** are supported, trough FlowRouter (SSR).
+3. **Lightweight** implementation, just check the Tracker.Component implementation in the `tracker-component.jsx` file, there is no magic going on behind the scenes, it's only **50 lines of code**.
 
 ### Meteor 1.3
 
 `meteor add studiointeract:tracker-component`
+
+> Usage instructions coming shortly!
 
 ### Meteor 1.2
 
@@ -34,7 +36,7 @@ Cars = class Cars extends Tracker.Component {
     super(props);
     this.autorun(() => {
       this.setState({
-        cars: Models.find().fetch();
+        cars: Models.find().fetch()
       });
     })
   }
@@ -44,39 +46,50 @@ Cars = class Cars extends Tracker.Component {
     return (
       <ul className="cars">
         {cars.map(car =>
-          <li className="car">{brand} {model}</li>
+          <li className="car">{car.brand} {car.model}</li>
         )}
       </ul>
     );
   }
 }
 
+if (Meteor.isClient) {
+  Meteor.startup(() => {
+    ReactDOM.render(React.createElement(Cars), document.body);
+  });
+}
+
 ```
 
 ## Fill with data from the server.
 
+> Try adding new car models while running meteor, you'll notice it is fully reactive throughout the whole stack.
+
 ```javascript
 // Bootstrap database with some cars.
 Meteor.startup(function() {
-  if (!Models.find().count()) {
-    let models = {
-      "Volvo": ['XC90', 'V90', 'V70'],
-      "Tesla": ['Model S', 'Model X', 'Model 3', 'Roadster'],
-      "DeLorean": ["DMC-12"]
-    };
+  let models = {
+    "Volvo": ['XC90', 'V90', 'V70'],
+    "Tesla": ['Model S', 'Model X', 'Model 3', 'Roadster'],
+    "DeLorean": ["DMC-12"]
+  };
 
-    Object.keys(models).forEach(brand => {
-      models[brand].forEach(model => {
-        Models.insert({ brand: brand, model: model });
-      });
+  Object.keys(models).forEach(brand => {
+    models[brand].forEach(model => {
+      car = { brand: brand, model: model };
+      Models.upsert(car, car);
     });
-  }
+  });
 });
 
+// Publish cars by brand or all of them.
 Meteor.publish('models', (brand) => {
   // Simulate network latency to show the loader.
   // Meteor._sleepForMs(2000);
-  return Models.find({ brand: brand });
+  if (brand) {
+    return Models.find({ brand: brand });
+  }
+  return Models.find();
 });
 
 ```
@@ -137,7 +150,9 @@ FlowRouter.route("/", {
 
 ```
 
-## What about adding a loading gif?
+## Full example: What about adding a loading gif?
+
+http://github.com/studiointeract/react-component-example
 
 We got you're back on this one too! And have a look below, we've also added a select button to switch between selected car brand.
 
