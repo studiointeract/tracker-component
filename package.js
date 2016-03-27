@@ -2,7 +2,7 @@ Package.describe({
   name: 'studiointeract:tracker-component',
   version: '1.2.1',
   // Brief, one-line summary of the package.
-  summary: 'Zero-config reactive React Components with Meteor',
+  summary: 'Easy reactive React Components with Meteor and Tracker',
   // URL to the Git repository containing the source code for this package.
   git: 'https://github.com/studiointeract/tracker-component',
   // By default, Meteor will default to using README.md for documentation.
