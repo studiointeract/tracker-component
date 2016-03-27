@@ -18,10 +18,3 @@ Package.onUse(function(api) {
   api.addFiles('tracker-component.jsx');
   api.export('Tracker');
 });
-
-Package.onTest(function(api) {
-  api.use('ecmascript');
-  api.use('tinytest');
-  api.use('tracker-component');
-  api.addFiles('tracker-component-tests.js');
-});
