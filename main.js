@@ -1,6 +1,6 @@
 import {Tracker} from 'meteor/tracker';
-import TrackerComponent from './tracker-component.jsx';
+import {Component} from './lib/index.jsx';
 
-Tracker.Component = TrackerComponent;
+Tracker.Component = Component;
 
 export default Tracker
