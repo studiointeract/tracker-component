@@ -1,5 +1,16 @@
 import React from 'react';
 
+// We can't import Tracker from NPM, this is how you get a hold of it.
+let Tracker = null;
+if (!Package['tracker']) {
+  const error =
+    'Tracker is required for Tracker.Component.';
+  throw new Error(error);
+}
+else {
+  Tracker = Package['tracker'].Tracker;
+}
+
 Tracker.Component = class extends React.Component {
   constructor(props) {
     super(props);
