@@ -21,8 +21,11 @@ Tracker.Component = class extends React.Component {
     this.__subscribe = props.subscribe || Meteor.subscribe;
     this.__allSubsReadyDep = new Tracker.Dependency();
     this.__allSubsReady = false;
+    this.__state = null;
     this.__props = props;
+    this.__stateDep = new Tracker.Dependency();
     this.__propsDep = new Tracker.Dependency();
+    this.__running = false;
   }
 
   /**
@@ -115,7 +118,10 @@ Tracker.Component = class extends React.Component {
    * @param {Function} runFunc The function to run. It receives one argument: a Tracker.Computation object.
    */
   autorun(fn) {
-    let comp = Tracker.autorun(fn);
+    let comp = Tracker.autorun(() => {
+      this.__running = true; fn();
+      this.__running = false;
+    });
     this.__comps.push(comp);
     return comp;
   }
@@ -132,6 +138,15 @@ Tracker.Component = class extends React.Component {
     this.__allSubsReady = Object.keys(this.__subs).every(sub => this.__subs[sub].handle.ready());
 
     return this.__allSubsReady;
+  }
+
+  set state(value) {
+    this.__state = value;
+  }
+
+  get state() {
+    this.__stateDep.depend();
+    return this.__state;
   }
 
   set props(value) {
@@ -152,10 +167,23 @@ Tracker.Component = class extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!_.isEqual(nextProps, this.props)) {
+  setProps(props) {
+    if (!this._reactInternalInstance) {
+      return this.props = Object.assign({}, this.props, props);
+    }
+    else {
+      return super.setProps.apply(this, arguments);
+    }
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (!_.isEqual(nextProps, this.props) && !this.__running) {
       this.__props = nextProps;
       this.__propsDep.changed();
+    }
+    if (!_.isEqual(nextState, this.state) && !this.__running) {
+      this.__state = nextState;
+      this.__stateDep.changed();
     }
   }
 
