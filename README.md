@@ -16,8 +16,6 @@ Notice! You have to call .fetch() on your cursors to actually get data.
 
 ### Meteor 1.3 (scroll down for 1.2)
 
-#### Install using NPM
-
 `npm i tracker-component`
 
 ### Meteor 1.2
