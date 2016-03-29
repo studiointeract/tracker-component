@@ -1,6 +1,6 @@
 # Tracker.Component
 
-Current version 1.3.2
+Current version 1.3.3
 
 ## Features
 
@@ -16,17 +16,9 @@ Notice! You have to call .fetch() on your cursors to actually get data.
 
 ### Meteor 1.3 (scroll down for 1.2)
 
-#### Install using NPM (React 15.x)
+#### Install using NPM
 
-`npm i tracker-component@^1.3.x`
-
-#### Install using NPM (React 0.14.7)
-
-`npm i tracker-component@1.3.2`
-
-#### Install using Meteor
-
-`meteor add studiointeract:tracker-component`
+`npm i tracker-component`
 
 > Usage instructions coming shortly!
 
