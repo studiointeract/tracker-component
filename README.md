@@ -6,7 +6,7 @@ Current version 1.3.3
 
 1. **Easy to use**, manages everything with Tracker through the easy to use autorun and subscribe methods, you don't have to manually setup the reactivity bindings, we promise!
 2. **Server Side Rendering** are supported, trough FlowRouter (SSR).
-3. **Lightweight** implementation, just check the Tracker.Component implementation in the `tracker-component.jsx` file, there is no magic going on behind the scenes, it's only **50 lines of code**.
+3. **Lightweight** implementation, just check the Tracker.Component implementation in the `tracker-component.jsx` file, there is no magic going on behind the scenes, it's only **65 lines of code**.
 
 **Tracker.Component** is an improvement to what ReactMeteorData and TrackerReact offers. Using Tracker.Component instead you are no longer required to "freeze" all your reactivity in a single method. Any reactive data sources (e.g: `collection.find().fetch()` or `Session.get('foo')` used in your render method or by methods called by your render method are automatically reactive! This replicates the standard helper experience from Meteor/Blaze. Enjoy!
 
