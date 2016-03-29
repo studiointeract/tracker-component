@@ -20,8 +20,6 @@ Notice! You have to call .fetch() on your cursors to actually get data.
 
 `npm i tracker-component`
 
-> Usage instructions coming shortly!
-
 ### Meteor 1.2
 
 `meteor add studiointeract:tracker-component@1.2.1`
