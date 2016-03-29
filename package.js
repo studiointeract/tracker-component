@@ -10,7 +10,6 @@ Package.onUse(function(api) {
   api.versionsFrom('1.3');
   api.use('ecmascript');
   api.use('tracker');
-  api.use('jsx@0.2.4');
 
   api.mainModule('main.js');
 });
