@@ -33,7 +33,6 @@ In this example we render a couple cars from MongoDB.
 `npm i --save react@^15.x react-dom@^15.x`
 
 ```javascript
-// main.jsx
 
 import React from 'react';
 import Tracker from 'tracker-component';
@@ -75,7 +74,6 @@ if (Meteor.isClient) {
 > Try adding new car models while running meteor, you'll notice it is fully reactive throughout the whole stack.
 
 ```javascript
-// main.js
 
 // Bootstrap database with some cars.
 Meteor.startup(function() {
@@ -128,7 +126,6 @@ Meteor.publish('models', (brand) => {
 `npm i --save react-mount-layout@^15.x`
 
 ```javascript
-// main.jsx
 
 import React from 'react';
 import { FlowRouter } from 'meteor/kadira:flow-router-ssr';
