@@ -28,12 +28,16 @@ Notice! You have to call .fetch() on your cursors to actually get data.
 
 # Using Tracker.Component (Meteor 1.3)
 
+`meteor create cars-react-app --release METEOR@1.3`
+
 In this example we render a couple cars from MongoDB.
 
 > You'll probably recognize the autorun and subscribe from Blaze's Tracker implementation. That's the core idea, simplicity.
 
+`npm i --save react@^15.x react-dom@^15.x`
+
 ```javascript
-// Cars.jsx
+// main.jsx
 
 import React from 'react';
 import Tracker from 'tracker-component';
@@ -68,8 +72,6 @@ if (Meteor.isClient) {
   });
 }
 
-export default Cars;
-
 ```
 
 ## Fill with data from the server.
@@ -77,6 +79,8 @@ export default Cars;
 > Try adding new car models while running meteor, you'll notice it is fully reactive throughout the whole stack.
 
 ```javascript
+// main.js
+
 // Bootstrap database with some cars.
 Meteor.startup(function() {
   let models = {
@@ -125,10 +129,14 @@ Meteor.publish('models', (brand) => {
 ## Add Server Side Rendering
 
 `meteor add kadira:flow-router-ssr`  
-`meteor add kadira:react-layout`
+`npm i --save react-mount-layout@^15.x`
 
 ```javascript
-// router.jsx
+// main.jsx
+
+import React from 'react';
+import { FlowRouter } from 'meteor/kadira:flow-router-ssr';
+import './Cars.jsx';
 
 const MainLayout = ({content}) => (
   <main>{content}</main>
@@ -172,6 +180,7 @@ Just add `this.subscriptionsReady()` to your autorun like below and you will get
 Notice! We advice in using "ready" flag rather "loading" due to that the data will default be ready when rendered on the server. The reason is basically to avoid having React complaining about different markup on server and client, which would happen when using the loading pattern.
 
 ```javascript
+// Cars.jsx
 
 Models = new Mongo.Collection('models');
 
