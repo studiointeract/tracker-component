@@ -4,7 +4,7 @@ Current version 1.3.11
 
 ## Features
 
-1. **Easy to use**, manages everything with Tracker through the easy to use autorun and subscribe methods, you don't have to manually setup the reactivity bindings, we promise!
+1. **Easy to use**, manages Tracker for you using autorun, and your subscriptions using the subscribe method, you don't have to manually setup the reactivity bindings or start/stop subscriptions, we promise!
 2. **Server Side Rendering** supported (with data trough FlowRouter SSR).
 3. **Lightweight** implementation, just see the implementation in `./lib/tracker-component.jsx`, there's no magic going on behind the scenes, only **50 lines of code**.
 
