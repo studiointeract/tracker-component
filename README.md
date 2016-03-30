@@ -12,7 +12,7 @@ Current version 1.3.11
 
 ## Installation
 
-> Scroll down for using with Meteor 1.2
+> [Go to using with Meteor 1.2](#using-trackercomponent-meteor-12)
 
 `npm i --save tracker-component`
 
