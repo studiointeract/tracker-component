@@ -14,7 +14,7 @@ Notice! You have to call .fetch() on your cursors to actually get data.
 
 ## Comparissons
 
-| Datapoint      | Tracker.Component  | TrackerReact      | ReactMeteorData  |
+|                | Tracker.Component  | [TrackerReact](https://github.com/ultimatejs/tracker-react)      | [ReactMeteorData](https://github.com/meteor/react-packages/tree/devel/packages/react-meteor-data)  |
 |:-------------- |:------------------:|:-----------------:|:----------------:|
 | Lines of code  | 50                 | 148               | 200              |
 | ES6 Class      | Yes                | -                 | -                |
