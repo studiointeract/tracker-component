@@ -519,6 +519,12 @@ Composition can be achieved with known methods (createContainer, TrackerReact an
 With Tracker.Component this can be achivieved with:
 
 ```javascript
+
+Models = new Mongo.Collection('models');
+if (Meteor.isServer) {
+  Meteor.publish('cars', brand => Models.find({ brand: brand }));
+}
+
 class Composition extends React.Component {
   constructor(props) {
     super(props);
