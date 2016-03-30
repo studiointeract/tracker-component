@@ -177,7 +177,7 @@ Brands.propTypes = {
 };
 Brands.defaultProps = { brand: 'Volvo' };
 
-export const Cars = ({ cars = [], ready }) => (
+const Cars = ({ cars = [], ready }) => (
   <ul className={["cars", ready ? "ready" : ""].join(' ')}>
     {cars.map((car, i) =>
       <li className="car" key={i}>{car.brand} {car.model}</li>
