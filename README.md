@@ -514,10 +514,10 @@ With Tracker.Component this can be achivieved with:
 class Composition extends React.Component {
   constructor(props) {
     super(props);
-    this.subscribe('cars');
+    this.subscribe('cars', this.props.brand);
     this.autorun(() => {
       this.setState({
-        cars: Models.find().fetch()
+        cars: Models.find({ brand: this.props.brand }).fetch()
       });
     });
   }
@@ -544,10 +544,21 @@ const MainLayout = ({content}) => (
 FlowRouter.route("/", {
   action() {
     ReactLayout.render(MainLayout, {
-      content: <Composition><Cars /></Composition>
+      content: <Composition brand={ 'Volvo' }><Cars /></Composition>
     });
   }
 });
+```
+### Results:
+
+```html
+
+<ul class="cars">
+  <li>Volvo XC90</li>
+  <li>Volvo V90</li>
+  <li>Volvo V70</li>
+</ul>
+
 ```
 
 ## Mixin
