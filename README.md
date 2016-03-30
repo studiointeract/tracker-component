@@ -504,6 +504,25 @@ The issue is that you have to match up the selectors for find() with the current
 
 With subscription management built in, your component will unsubscribe to the data you needed for the component when it is unmounted/destroyed, compared to known methods (ReactMeteorData, createContainer, TrackerReact and react-komposer) you will need to manage this yourself and potentially overload the client with data from multiple subscriptions that was never stopped, when the user is moving around your application.
 
+With Tracker.Component you subscribe to publications per component like this:
+
+> Notice! The `autorun` method is also reactive to changes on `this.props` and `this.state`, which makes it possible to react accordingly on changes to these and change the subscriptions.
+
+```javascript
+Cars = class Cars extends Tracker.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      brand: this.props.brand
+    };
+    this.subscribe('brands');
+    this.autorun(() => {
+      this.subscribe( 'brand', this.state.brand );
+    });
+  }
+}
+```
+
 ## Class Inheritance
 
 With Class Inheritance we talk about the method we can extend existing Components with new functionality and a method of overloading existing method with your own, the benefits is that you are in full control of the component how it behaves and if you don't like how a particular method or handler does things, you can replace it with your own implementation.
