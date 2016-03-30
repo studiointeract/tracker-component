@@ -4,21 +4,21 @@ Current version 1.3.11
 
 ## Features
 
-1. **Easy to use**, manages Tracker for you using autorun, and your subscriptions using the subscribe method, you don't have to manually setup the reactivity bindings or start/stop subscriptions, we promise!
+1. **[Easy to use](#using-trackercomponent)**, manages Tracker for you using autorun, and your subscriptions using the subscribe method, you don't have to manually setup the reactivity bindings or start/stop subscriptions, we promise!
 3. **[Subscriptions](#subscriptions)** are managed through the built in `this.subscribe` and ensures your subscription are correctly stopped when your component unmounts.
 4. **[Composition](#composition) and [Class Inheritance](#class-inheritance)** is easy to achieve, and the preferred methods rather than using Mixins, [read more about Mixin](#mixin).
-5. **Lightweight** implementation, have a look in [`index.jsx`](lib/index.jsx), there's no magic going on, only **50 lines of code**.
+5. **[Lightweight](lib/index.jsx)** implementation, have a look in [`index.jsx`](lib/index.jsx), there's no magic going on, only **50 lines of code**.
 6. **[Server Side Rendering](#server-side-rendering)** supported (with data managed trough FlowRouter SSR).
 
 **Tracker.Component** is an improvement to what other methods offer ([see comparison](#comparison)) for React. Using Tracker.Component you are no longer required to "freeze" all your reactivity in a single method or composition. You set the state from the reactive data sources (e.g: `collection.find().fetch()` or `Session.get('foo')` in `this.autorun`, which is also reactive to changes in `this.props` or `this.state`. Have fun!
 
 ## Installation
 
-> [Go to using with Meteor 1.2](#using-trackercomponent-meteor-12)
-
 `npm i --save tracker-component`
 
 # Using Tracker.Component
+
+> [Go to using with Meteor 1.2](#using-trackercomponent-meteor-12)
 
 `meteor create myapp --release METEOR@1.3`
 
