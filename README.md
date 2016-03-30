@@ -584,3 +584,7 @@ FlowRouter.route("/", {
 ## Mixin
 
 Mixins are a method of previous versions of React, we used them to extend the components with extra features on top, the new way to achive the same functionality is through [Composition](#composition) or [Class Inheritance](#class-inheritance). Don't forget to read the article on Mixins by Dan Abramov, [Mixins Are Dead. Long Live Composition](https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750#.l18k55fdx).
+
+## Notes
+
+Beware, if you re-implement componentWillUpdate or componentWillUnmount, don't forget to call the super implementation.
