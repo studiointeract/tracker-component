@@ -507,7 +507,7 @@ class FooComponent extends React.Component {
 | [Mixin](#mixin) | -                  | -                 | Yes              | -                    |
 | [Subscriptions](#subscriptions) | this.subscribe | -     | -                | -                    |
 | [SSR](#server-side-rendering) | Yes  | Partial           | Partial          | Partial              |
-| Reactivity      | this.autorun       | render            | getMeteorData    | [composeWithTracker]((https://github.com/kadirahq/react-komposer#using-with-meteor)                  |
+| Reactivity      | this.autorun       | render            | getMeteorData    | [composeWithTracker](https://github.com/kadirahq/react-komposer#using-with-meteor)                  |
 | NPM module      | Yes                | -                 | -                | Yes                  |
 
 ## Server Side Rendering
