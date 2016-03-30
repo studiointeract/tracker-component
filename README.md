@@ -483,7 +483,7 @@ class FooComponent extends React.Component {
 
 ## Comparison
 
-|                 | Tracker.Component  | [TrackerReact](https://github.com/ultimatejs/tracker-react) | [ReactMeteorData](https://github.com/meteor/react-packages/tree/devel/packages/react-meteor-data)   | [react-komposer](https://github.com/kadirahq/react-komposer#using-with-meteor)                      |
+|                 | Tracker.Component  | [TrackerReact](https://github.com/ultimatejs/tracker-react) | [ReactMeteorData](https://github.com/meteor/react-packages/tree/devel/packages/react-meteor-data)   | [react-komposer](https://github.com/kadirahq/react-komposer)                      |
 |:--------------- |:------------------:|:-----------------:|:----------------:|:--------------------:|
 | Lines of code   | 50                 | 148               | 200              | 292                  |
 | [ES6 Class Inheritance](#class-inheritance) | Yes | -    | -                | -                    |
@@ -491,7 +491,7 @@ class FooComponent extends React.Component {
 | [Mixin](#mixin) | -                  | -                 | Yes              | -                    |
 | [Subscriptions](#subscriptions) | this.subscribe | -     | -                | -                    |
 | [SSR](#server-side-rendering) | Yes  | Partial           | Partial          | Partial              |
-| Reactivity      | this.autorun       | render            | getMeteorData    | composeWithTracker   |
+| Reactivity      | this.autorun       | render            | getMeteorData    | [composeWithTracker]((https://github.com/kadirahq/react-komposer#using-with-meteor)                  |
 | NPM module      | Yes                | -                 | -                | Yes                  |
 
 ## Server Side Rendering
