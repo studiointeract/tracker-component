@@ -568,29 +568,23 @@ const Cars = ({ cars = [] }) => (
   </ul>
 );
 
-const MainLayout = ({content}) => (
-  <main>{content}</main>
-);
-
-FlowRouter.route("/", {
-  action() {
-    ReactLayout.render(MainLayout, {
-      content: <Composition brand={ 'Volvo' }><Cars /></Composition>
-    });
-  }
-});
+if (Meteor.isClient) {
+  Meteor.startup(() => {
+    ReactDOM.render(<Composition brand={ 'Volvo' }><Cars /></Composition>, document.body);
+  });
+}
 ```
 ### Results:
 
 ```html
 
-<main>
+<body>
   <ul class="cars">
     <li>Volvo XC90</li>
     <li>Volvo V90</li>
     <li>Volvo V70</li>
   </ul>
-</main>
+</body>
 
 ```
 
