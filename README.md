@@ -504,7 +504,7 @@ With Class Inheritance we talk about the method we can extend existing Component
 
 ## Composition
 
-With Composition in React we mean the method to split up data management and pure rendering components, composition is actually a known method in mathematics, "the pointwise application of one function to the result of another to produce a third function" (ref. [Function Composition](https://en.wikipedia.org/wiki/Function_composition).
+With Composition in React we mean the method to split up data management and pure rendering components, composition is actually a known method in mathematics, "the pointwise application of one function to the result of another to produce a third function" (ref. [Function Composition](https://en.wikipedia.org/wiki/Function_composition)).
 
 Composition can be achieved with known methods (createContainer, TrackerReact and react-komposer) by passing your data management function to the compostion method which resolves in a method that takes your Component as an argument.
 
