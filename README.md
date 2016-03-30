@@ -12,6 +12,19 @@ Current version 1.3.11
 
 Notice! You have to call .fetch() on your cursors to actually get data.
 
+## Comparissons
+
+| Datapoint      | Tracker.Component  | TrackerReact      | ReactMeteorData  |
+|:-------------- |:------------------:|:-----------------:|:----------------:|
+| Lines of code  | 50                 | 148               | 200              |
+| ES6 Class      | Yes                | -                 | -                |
+| Composition    | -                  | Yes               | -                |
+| Mixin          | -                  | -                 | Yes              |
+| Subscriptions  | this.subscribe     | -                 | -                |
+| SSR            | Yes                | ?                 | ?                |
+| Reactivity     | this.autorun       | render            | getMeteorData    |
+
+
 ## Installation
 
 ### Meteor 1.3 (scroll down for 1.2)
