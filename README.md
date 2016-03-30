@@ -8,54 +8,39 @@ Current version 1.3.11
 2. **Server Side Rendering** are supported, trough FlowRouter (SSR).
 3. **Lightweight** implementation, just check the Tracker.Component implementation in the `tracker-component.jsx` file, there is no magic going on behind the scenes, it's only **50 lines of code**.
 
-**Tracker.Component** is an improvement to what ReactMeteorData and TrackerReact offers. Using Tracker.Component instead you are no longer required to "freeze" all your reactivity in a single method. Any reactive data sources (e.g: `collection.find().fetch()` or `Session.get('foo')` used in your render method or by methods called by your render method are automatically reactive! This replicates the standard helper experience from Meteor/Blaze. Enjoy!
-
-Notice! You have to call .fetch() on your cursors to actually get data.
-
-## Comparissons
-
-|                | Tracker.Component  | [TrackerReact](https://github.com/ultimatejs/tracker-react)      | [ReactMeteorData](https://github.com/meteor/react-packages/tree/devel/packages/react-meteor-data)  |
-|:-------------- |:------------------:|:-----------------:|:----------------:|
-| Lines of code  | 50                 | 148               | 200              |
-| ES6 Class      | Yes                | -                 | -                |
-| Composition    | -                  | Yes               | -                |
-| Mixin          | -                  | -                 | Yes              |
-| Subscriptions  | this.subscribe     | -                 | -                |
-| SSR            | Yes                | ?                 | ?                |
-| Reactivity     | this.autorun       | render            | getMeteorData    |
-| NPM            | Yes                | -                 | -                |
-
+**Tracker.Component** is an improvement to what other methods offer ([see comparison](#comparison)). Using Tracker.Component you are no longer required to "freeze" all your reactivity in a single method or composition. You set the state from the reactive data sources (e.g: `collection.find().fetch()` or `Session.get('foo')` in an `autorun` method, autorun is also reactive to changed in `this.props`/`this.state`. Have fun!
 
 ## Installation
 
-### Meteor 1.3 (scroll down for 1.2)
+> Scroll down for using with Meteor 1.2
 
 `npm i --save tracker-component`
 
-### Meteor 1.2
+# Using Tracker.Component
 
-`meteor add studiointeract:tracker-component@1.2.1`
-
-# Using Tracker.Component (Meteor 1.3)
-
-`meteor create cars-react-app --release METEOR@1.3`
+`meteor create myapp --release METEOR@1.3`
 
 In this example we render a couple cars from MongoDB.
 
 > You'll probably recognize the autorun and subscribe from Blaze's Tracker implementation. That's the core idea, simplicity.
 
-`npm i --save react@^15.x react-dom@^15.x`
+`npm i --save react react-dom`
 
 ```javascript
+// main.jsx
 
 import React from 'react';
 import Tracker from 'tracker-component';
 
 Models = new Mongo.Collection('models');
+if (Meteor.isServer) {
+  Meteor.publish('cars', () =>Models.find());
+}
 
 class Cars extends Tracker.Component {
   constructor(props) {
     super(props);
+    this.subscribe('cars');
     this.autorun(() => {
       this.setState({
         cars: Models.find().fetch()
@@ -105,8 +90,7 @@ Meteor.startup(function() {
   });
 });
 
-// Publish cars by brand or all of them.
-Meteor.publish('models', (brand) => {
+Meteor.publish('brand', (brand) => {
   // Simulate network latency to show the loader.
   // Meteor._sleepForMs(2000);
   if (brand) {
@@ -137,7 +121,8 @@ Meteor.publish('models', (brand) => {
 ## Add Server Side Rendering
 
 `meteor add kadira:flow-router-ssr`  
-`npm i --save react-mount-layout@^15.x`
+`npm i --save react-mounter` (for React 0.14.7)
+`npm i --save react-mount-layout@^15.x` (for React 15.x, will replace with *react-mounter* when supporting 15.x)
 
 ```javascript
 
@@ -198,7 +183,7 @@ Cars = class Cars extends Tracker.Component {
       brand: this.props.brand
     };
     this.autorun(() => {
-      this.subscribe( 'models', this.state.brand );
+      this.subscribe( 'brand', this.state.brand );
     });
     this.autorun(() => {
       this.setState({
@@ -269,6 +254,10 @@ Add `Meteor._sleepForMs(2000);` in the publication to get view of the beautiful 
 
 # Using Tracker.Component (Meteor 1.2)
 
+## Installation
+
+`meteor add studiointeract:tracker-component@1.2.1`
+
 In this example we render a couple cars from MongoDB.
 
 > You'll probably recognize the autorun and subscribe from Blaze's Tracker implementation. That's the core idea, simplicity.
@@ -328,7 +317,7 @@ Meteor.startup(function() {
 });
 
 // Publish cars by brand or all of them.
-Meteor.publish('models', (brand) => {
+Meteor.publish('brand', (brand) => {
   // Simulate network latency to show the loader.
   // Meteor._sleepForMs(2000);
   if (brand) {
@@ -459,6 +448,25 @@ Cars.defaultProps = { brand: 'Volvo' };
 
 ```
 
-## Notes
+## Comparison
 
-* The component will stop old subscriptions and computations after 20seconds to avoid the case when the user quickly goes back to show the component and having the data disappear.
+|                | Tracker.Component  | [TrackerReact](https://github.com/ultimatejs/tracker-react) | [ReactMeteorData](https://github.com/meteor/react-packages/tree/devel/packages/react-meteor-data)   | [react-komposer](https://github.com/meteor/react-packages/tree/devel/packages/react-meteor-data)    |
+|:-------------- |:------------------:|:-----------------:|:----------------:|:--------------------:|
+| Lines of code  | 50                 | 148               | 200              | 292                  |
+| ES6 Class      | Yes                | -                 | -                | -                    |
+| Composition    | -                  | Yes               | createContainer  | Yes                  |
+| Mixin          | -                  | -                 | Yes              | -                    |
+| [Subscriptions](#subscriptions) | this.subscribe | -    | -                | -                    |
+| [SSR](#server-side-rendering) | Yes | Partial           | Partial          | Yes                  |
+| Reactivity     | this.autorun       | render            | getMeteorData    | composeWithTracker   |
+| NPM            | Yes                | -                 | -                | Yes                  |
+
+## Server Side Rendering
+
+To get the Server to render your component with prefilled data, you'll need to have the data do with known methods (ReactMeteorData, createContainer and TrackerReact) to manually load that data specific for the server, this method will potentially show you more data then the client expects and React will complain when you the client version takes over. 
+
+The reason is that you have to match up the selectors for find() with the current subscription. With Tracker.Component which have subscription support built in, you set these up in the constructor together with your find().fetch() on the collections, this ensures the data available is equal on both server/client.
+
+## Subscriptions
+
+With subscription management built in, your component will unsubscribe to the data you needed when destroyed, compared to known methods (ReactMeteorData, createContainer, TrackerReact and react-komposer) you will need to manage this yourself and potentially overload the client with data from multiple subscriptions that was never stopped when the user is moving around your application.
