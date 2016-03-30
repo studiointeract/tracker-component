@@ -450,7 +450,7 @@ Cars.defaultProps = { brand: 'Volvo' };
 
 ## Comparison
 
-|                | Tracker.Component  | [TrackerReact](https://github.com/ultimatejs/tracker-react) | [ReactMeteorData](https://github.com/meteor/react-packages/tree/devel/packages/react-meteor-data)   | [react-komposer](https://github.com/meteor/react-packages/tree/devel/packages/react-meteor-data)    |
+|                | Tracker.Component  | [TrackerReact](https://github.com/ultimatejs/tracker-react) | [ReactMeteorData](https://github.com/meteor/react-packages/tree/devel/packages/react-meteor-data)   | [react-komposer](https://github.com/kadirahq/react-komposer#using-with-meteor)                      |
 |:-------------- |:------------------:|:-----------------:|:----------------:|:--------------------:|
 | Lines of code  | 50                 | 148               | 200              | 292                  |
 | ES6 Class      | Yes                | -                 | -                | -                    |
