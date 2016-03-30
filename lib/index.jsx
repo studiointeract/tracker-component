@@ -45,6 +45,11 @@ Tracker.Component = class extends React.Component {
     this.__subs.forEach(sub => sub.stop());
     this.__comps.forEach(comp => comp.stop());
   }
+
+  render() {
+    let composition = this.props.children.map(Child => <Child {...this.state} />);
+    return composition.length == 1 ? composition : <div>{composition}</div>;
+  }
 };
 
 export default Tracker;
