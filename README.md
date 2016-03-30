@@ -7,7 +7,7 @@ Current version 1.3.11
 1. **Easy to use**, manages Tracker for you using autorun, and your subscriptions using the subscribe method, you don't have to manually setup the reactivity bindings or start/stop subscriptions, we promise!
 3. **Subscriptions** are managed through the built in `this.subscribe` and ensured your subscriptions are correctly stopped when they are not needed anymore.
 4. **Server Side Rendering** supported (with data managed trough FlowRouter SSR).
-5. **Lightweight** implementation, have a look in [`index.jsx`](lib/index.jsx), there's no magic going on behind the scenes, only **50 lines of code**.
+5. **Lightweight** implementation, have a look in [`index.jsx`](lib/index.jsx), there's no magic going on, only **50 lines of code**.
 
 **Tracker.Component** is an improvement to what other methods offer ([see comparison](#comparison)). Using Tracker.Component you are no longer required to "freeze" all your reactivity in a single method or composition. You set the state from the reactive data sources (e.g: `collection.find().fetch()` or `Session.get('foo')` in `this.autorun`, which is also reactive to changes in `this.props` or `this.state`. Have fun!
 
