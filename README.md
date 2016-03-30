@@ -39,7 +39,7 @@ if (Meteor.isServer) {
   Meteor.publish('cars', () => Models.find());
 }
 
-class Cars extends Tracker.Component {
+class Models extends Tracker.Component {
   constructor(props) {
     super(props);
     this.subscribe('cars');
@@ -49,22 +49,19 @@ class Cars extends Tracker.Component {
       });
     })
   }
-
-  render() {
-    let {cars = []} = this.state;
-    return (
-      <ul className="cars">
-        {cars.map(car =>
-          <li className="car">{car.brand} {car.model}</li>
-        )}
-      </ul>
-    );
-  }
 }
+
+const Cars = ({ cars = [] }) => (
+  <ul className="cars">
+    {cars.map(car =>
+      <li className="car">{car.brand} {car.model}</li>
+    )}
+  </ul>
+);
 
 if (Meteor.isClient) {
   Meteor.startup(() => {
-    ReactDOM.render(<Cars />, document.body);
+    ReactDOM.render(<Models><Cars /></Models>, document.body);
   });
 }
 
