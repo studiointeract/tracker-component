@@ -457,7 +457,7 @@ Cars.defaultProps = { brand: 'Volvo' };
 | Composition    | -                  | Yes               | createContainer  | Yes                  |
 | Mixin          | -                  | -                 | Yes              | -                    |
 | [Subscriptions](#subscriptions) | this.subscribe | -    | -                | -                    |
-| [SSR](#server-side-rendering) | Yes | Partial           | Partial          | Yes                  |
+| [SSR](#server-side-rendering) | Yes | Partial           | Partial          | Partial              |
 | Reactivity     | this.autorun       | render            | getMeteorData    | composeWithTracker   |
 | NPM            | Yes                | -                 | -                | Yes                  |
 
