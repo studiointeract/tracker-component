@@ -449,18 +449,41 @@ Cars.defaultProps = { brand: 'Volvo' };
 
 ```
 
+## Increase Performance using PureRenderMixin
+
+As described on its own [documentation](https://facebook.github.io/react/docs/pure-render-mixin.html) this is a utility to increase rendering performance for react components where
+
+* the render function is a pure function of its props
+* the props are not nested data structures (more on this on the docs)
+
+Here's the official ES6 example:
+
+```javascript
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+class FooComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+  }
+
+  render() {
+    return <div className={this.props.className}>foo</div>;
+  }
+}
+```
+
 ## Comparison
 
-|                | Tracker.Component  | [TrackerReact](https://github.com/ultimatejs/tracker-react) | [ReactMeteorData](https://github.com/meteor/react-packages/tree/devel/packages/react-meteor-data)   | [react-komposer](https://github.com/kadirahq/react-komposer#using-with-meteor)                      |
-|:-------------- |:------------------:|:-----------------:|:----------------:|:--------------------:|
-| Lines of code  | 50                 | 148               | 200              | 292                  |
-| ES6 Class      | Yes                | -                 | -                | -                    |
-| Composition    | -                  | Yes               | createContainer  | Yes                  |
-| Mixin          | -                  | -                 | Yes              | -                    |
-| [Subscriptions](#subscriptions) | this.subscribe | -    | -                | -                    |
-| [SSR](#server-side-rendering) | Yes | Partial           | Partial          | Partial              |
-| Reactivity     | this.autorun       | render            | getMeteorData    | composeWithTracker   |
-| NPM            | Yes                | -                 | -                | Yes                  |
+|                 | Tracker.Component  | [TrackerReact](https://github.com/ultimatejs/tracker-react) | [ReactMeteorData](https://github.com/meteor/react-packages/tree/devel/packages/react-meteor-data)   | [react-komposer](https://github.com/kadirahq/react-komposer#using-with-meteor)                      |
+|:--------------- |:------------------:|:-----------------:|:----------------:|:--------------------:|
+| Lines of code   | 50                 | 148               | 200              | 292                  |
+| [ES6 Class Inheritance](#class-inheritance) | Yes | -    | -                | -                    |
+| [Composition](#composition) | Yes    | Yes               | createContainer  | Yes                  |
+| [Mixin](#mixin) | -                  | -                 | Yes              | -                    |
+| [Subscriptions](#subscriptions) | this.subscribe | -     | -                | -                    |
+| [SSR](#server-side-rendering) | Yes  | Partial           | Partial          | Partial              |
+| Reactivity      | this.autorun       | render            | getMeteorData    | composeWithTracker   |
+| NPM module      | Yes                | -                 | -                | Yes                  |
 
 ## Server Side Rendering
 
@@ -471,3 +494,60 @@ The issue is that you have to match up the selectors for find() with the current
 ## Subscriptions
 
 With subscription management built in, your component will unsubscribe to the data you needed for the component when it is unmounted/destroyed, compared to known methods (ReactMeteorData, createContainer, TrackerReact and react-komposer) you will need to manage this yourself and potentially overload the client with data from multiple subscriptions that was never stopped, when the user is moving around your application.
+
+## Class Inheritance
+
+With Class Inheritance we talk about the method we can extend existing Components with new functionality and a method of overloading existing method with your own, the benefits is that you are in full control of the component how it behaves and if you don't like how a particular method or handler does things, you can replace it with your own implementation.
+
+> This is the default method for Tracker.Component because it requires you to write the least amount of code.
+
+## Composition
+
+With Composition in React we mean the method to split up data management and pure rendering components, composition is actually a known method in mathematics, "the pointwise application of one function to the result of another to produce a third function" (ref. [Function Composition](https://en.wikipedia.org/wiki/Function_composition).
+
+Composition can be achieved with known methods (createContainer, TrackerReact and react-komposer) by passing your data management function to the compostion method which resolves in a method that takes your Component as an argument.
+
+With Tracker.Component this can be achivieved with this:
+
+```javascript
+class Composition extends React.Component {
+  constructor(props) {
+    super(props);
+    this.subscribe('cars');
+    this.autorun(() => {
+      this.setState({
+        cars: Models.find().fetch()
+      });
+    });
+  }
+
+  render() {
+    let { children = [] } = this.props;
+    return children.map(Child => <Child {...this.state} />);
+  }
+}
+
+const Cars = ({ cars = [] }) => (
+  <ul className="cars">
+    {cars.map(car =>
+      <li className="car">{car.brand} {car.model}</li>
+    )}
+  </ul>
+);
+
+const MainLayout = ({content}) => (
+  <main>{content}</main>
+);
+
+FlowRouter.route("/", {
+  action() {
+    ReactLayout.render(MainLayout, {
+      content: <Composition><Cars /></Composition>
+    });
+  }
+});
+```
+
+## Mixin
+
+Mixins are a method of previous versions of React, we used them to extend the components with extra features on top, the new way to achive the same functionality is through [Composition](#composition) or [Class Inheritance](#class-inheritance). Don't forget to read the article on Mixins by Dan Abramov, [Mixins Are Dead. Long Live Composition](https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750#.l18k55fdx).
