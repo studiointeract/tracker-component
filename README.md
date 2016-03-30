@@ -487,7 +487,7 @@ class FooComponent extends React.Component {
 |:--------------- |:------------------:|:-----------------:|:----------------:|:--------------------:|
 | Lines of code   | 50                 | 148               | 200              | 292                  |
 | [ES6 Class Inheritance](#class-inheritance) | Yes | -    | -                | -                    |
-| [Composition](#composition) | Yes    | Yes               | createContainer  | Yes                  |
+| [Composition](#composition) | Yes    | Yes               | [createContainer](http://guide.meteor.com/v1.3/react.html#using-createContainer) | Yes               |
 | [Mixin](#mixin) | -                  | -                 | Yes              | -                    |
 | [Subscriptions](#subscriptions) | this.subscribe | -     | -                | -                    |
 | [SSR](#server-side-rendering) | Yes  | Partial           | Partial          | Partial              |
