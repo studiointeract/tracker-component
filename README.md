@@ -23,6 +23,7 @@ Notice! You have to call .fetch() on your cursors to actually get data.
 | Subscriptions  | this.subscribe     | -                 | -                |
 | SSR            | Yes                | ?                 | ?                |
 | Reactivity     | this.autorun       | render            | getMeteorData    |
+| NPM            | Yes                | -                 | -                |
 
 
 ## Installation
