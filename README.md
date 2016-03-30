@@ -107,16 +107,18 @@ Meteor.publish('brand', (brand) => {
 
 ```html
 
-<ul class="cars">
-  <li>Volvo XC90</li>
-  <li>Volvo V90</li>
-  <li>Volvo V70</li>
-  <li>Tesla Model S</li>
-  <li>Tesla Model X</li>
-  <li>Tesla Model 3</li>
-  <li>Tesla Roadster</li>
-  <li>DeLorean DMC-12</li>
-</ul>
+<body>
+  <ul class="cars">
+    <li>Volvo XC90</li>
+    <li>Volvo V90</li>
+    <li>Volvo V70</li>
+    <li>Tesla Model S</li>
+    <li>Tesla Model X</li>
+    <li>Tesla Model 3</li>
+    <li>Tesla Roadster</li>
+    <li>DeLorean DMC-12</li>
+  </ul>
+<body>
 
 ```
 
@@ -150,16 +152,18 @@ FlowRouter.route("/", {
 
 ```html
 
-<ul class="cars">
-  <li>Volvo XC90</li>
-  <li>Volvo V90</li>
-  <li>Volvo V70</li>
-  <li>Tesla Model S</li>
-  <li>Tesla Model X</li>
-  <li>Tesla Model 3</li>
-  <li>Tesla Roadster</li>
-  <li>DeLorean DMC-12</li>
-</ul>
+<main>
+  <ul class="cars">
+    <li>Volvo XC90</li>
+    <li>Volvo V90</li>
+    <li>Volvo V70</li>
+    <li>Tesla Model S</li>
+    <li>Tesla Model X</li>
+    <li>Tesla Model 3</li>
+    <li>Tesla Roadster</li>
+    <li>DeLorean DMC-12</li>
+  </ul>
+</main>
 
 ```
 
@@ -334,16 +338,18 @@ Meteor.publish('brand', (brand) => {
 
 ```html
 
-<ul class="cars">
-  <li>Volvo XC90</li>
-  <li>Volvo V90</li>
-  <li>Volvo V70</li>
-  <li>Tesla Model S</li>
-  <li>Tesla Model X</li>
-  <li>Tesla Model 3</li>
-  <li>Tesla Roadster</li>
-  <li>DeLorean DMC-12</li>
-</ul>
+<body>
+  <ul class="cars">
+    <li>Volvo XC90</li>
+    <li>Volvo V90</li>
+    <li>Volvo V70</li>
+    <li>Tesla Model S</li>
+    <li>Tesla Model X</li>
+    <li>Tesla Model 3</li>
+    <li>Tesla Roadster</li>
+    <li>DeLorean DMC-12</li>
+  </ul>
+</body>
 
 ```
 
@@ -373,16 +379,18 @@ FlowRouter.route("/", {
 
 ```html
 
-<ul class="cars">
-  <li>Volvo XC90</li>
-  <li>Volvo V90</li>
-  <li>Volvo V70</li>
-  <li>Tesla Model S</li>
-  <li>Tesla Model X</li>
-  <li>Tesla Model 3</li>
-  <li>Tesla Roadster</li>
-  <li>DeLorean DMC-12</li>
-</ul>
+<main>
+  <ul class="cars">
+    <li>Volvo XC90</li>
+    <li>Volvo V90</li>
+    <li>Volvo V70</li>
+    <li>Tesla Model S</li>
+    <li>Tesla Model X</li>
+    <li>Tesla Model 3</li>
+    <li>Tesla Roadster</li>
+    <li>DeLorean DMC-12</li>
+  </ul>
+</main>
 
 ```
 
@@ -553,11 +561,13 @@ FlowRouter.route("/", {
 
 ```html
 
-<ul class="cars">
-  <li>Volvo XC90</li>
-  <li>Volvo V90</li>
-  <li>Volvo V70</li>
-</ul>
+<main>
+  <ul class="cars">
+    <li>Volvo XC90</li>
+    <li>Volvo V90</li>
+    <li>Volvo V70</li>
+  </ul>
+</main>
 
 ```
 
