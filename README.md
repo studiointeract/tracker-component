@@ -469,4 +469,4 @@ The issue is that you have to match up the selectors for find() with the current
 
 ## Subscriptions
 
-With subscription management built in, your component will unsubscribe to the data you needed when destroyed, compared to known methods (ReactMeteorData, createContainer, TrackerReact and react-komposer) you will need to manage this yourself and potentially overload the client with data from multiple subscriptions that was never stopped when the user is moving around your application.
+With subscription management built in, your component will unsubscribe to the data you needed for the component when it is unmounted/destroyed, compared to known methods (ReactMeteorData, createContainer, TrackerReact and react-komposer) you will need to manage this yourself and potentially overload the client with data from multiple subscriptions that was never stopped, when the user is moving around your application.
