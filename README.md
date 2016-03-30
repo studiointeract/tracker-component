@@ -64,7 +64,7 @@ class Cars extends Tracker.Component {
 
 if (Meteor.isClient) {
   Meteor.startup(() => {
-    ReactDOM.render(React.createElement(Cars), document.body);
+    ReactDOM.render(<Cars />, document.body);
   });
 }
 
@@ -295,7 +295,7 @@ Cars = class Cars extends Tracker.Component {
 
 if (Meteor.isClient) {
   Meteor.startup(() => {
-    ReactDOM.render(React.createElement(Cars), document.body);
+    ReactDOM.render(<Cars />, document.body);
   });
 }
 
