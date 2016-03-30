@@ -8,7 +8,7 @@ Current version 1.3.11
 2. **Server Side Rendering** supported (with data trough FlowRouter SSR).
 3. **Lightweight** implementation, just see the implementation in `./lib/tracker-component.jsx`, there's no magic going on behind the scenes, only **50 lines of code**.
 
-**Tracker.Component** is an improvement to what other methods offer ([see comparison](#comparison)). Using Tracker.Component you are no longer required to "freeze" all your reactivity in a single method or composition. You set the state from the reactive data sources (e.g: `collection.find().fetch()` or `Session.get('foo')` in an `autorun` method, autorun is also reactive to changed in `this.props`/`this.state`. Have fun!
+**Tracker.Component** is an improvement to what other methods offer ([see comparison](#comparison)). Using Tracker.Component you are no longer required to "freeze" all your reactivity in a single method or composition. You set the state from the reactive data sources (e.g: `collection.find().fetch()` or `Session.get('foo')` in `this.autorun`, which is also reactive to changes in `this.props` or `this.state`. Have fun!
 
 ## Installation
 
