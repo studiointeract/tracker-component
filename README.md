@@ -594,7 +594,7 @@ Mixins are a method of previous versions of React, we used them to extend the co
 
 ## Notes
 
-Beware, if you re-implement componentWillUpdate or componentWillUnmount, don't forget to call the super implementation.
+Beware, if you re-implement componentWillUpdate or componentWillUnmount, don't forget to call the super implementation (`super.componentWillUpdate()` or `super.componentWillUnmount()`).
 
 ## Credits
 
