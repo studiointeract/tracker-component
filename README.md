@@ -524,7 +524,8 @@ class Composition extends React.Component {
 
   render() {
     let { children = [] } = this.props;
-    return children.map(Child => <Child {...this.state} />);
+    let composition = children.map(Child => <Child {...this.state} />);
+    return composition.length == 1 ? composition : <div>{composition}</div>;
   }
 }
 
