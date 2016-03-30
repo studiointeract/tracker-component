@@ -47,7 +47,7 @@ class Models extends Tracker.Component {
       this.setState({
         cars: Models.find().fetch()
       });
-    })
+    });
   }
 }
 
@@ -119,51 +119,6 @@ Meteor.publish('brand', (brand) => {
 
 ```
 
-## Add Server Side Rendering
-
-`meteor add kadira:flow-router-ssr`  
-`npm i --save react-mounter` (for React 0.14.7)
-`npm i --save react-mount-layout@^15.x` (for React 15.x, will replace with *react-mounter* when supporting 15.x)
-
-```javascript
-
-import React from 'react';
-import { FlowRouter } from 'meteor/kadira:flow-router-ssr';
-import './Cars.jsx';
-
-const MainLayout = ({content}) => (
-  <main>{content}</main>
-);
-
-FlowRouter.route("/", {
-  action() {
-    ReactLayout.render(MainLayout, {
-      content: <Cars />
-    });
-  }
-});
-
-```
-
-### Result on the server:
-
-```html
-
-<main>
-  <ul class="cars">
-    <li>Volvo XC90</li>
-    <li>Volvo V90</li>
-    <li>Volvo V70</li>
-    <li>Tesla Model S</li>
-    <li>Tesla Model X</li>
-    <li>Tesla Model 3</li>
-    <li>Tesla Roadster</li>
-    <li>DeLorean DMC-12</li>
-  </ul>
-</main>
-
-```
-
 ## Full example: What about adding a loading gif?
 
 [http://github.com/studiointeract/tracker-component-example](http://github.com/studiointeract/tracker-component-example)
@@ -175,11 +130,11 @@ Just add `this.subscriptionsReady()` to your autorun like below and you will get
 Notice! We advice in using "ready" flag rather "loading" due to that the data will default be ready when rendered on the server. The reason is basically to avoid having React complaining about different markup on server and client, which would happen when using the loading pattern.
 
 ```javascript
-// Cars.jsx
+// main.jsx
 
 Models = new Mongo.Collection('models');
 
-Cars = class Cars extends Tracker.Component {
+Brands = class Cars extends Tracker.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -211,21 +166,28 @@ Cars = class Cars extends Tracker.Component {
           {brands.map((brand, i) =>
             <option value={brand} key={i}>{brand}</option>
           )}
+          {super.render()}
         </select>
-        <ul className={["cars",
-          this.state.ready ? "ready" : ""].join(' ')}>
-          {cars.map((car, i) =>
-            <li className="car" key={i}>{car.brand} {car.model}</li>
-          )}
-        </ul>
       </div>
     );
   }
 }
-Cars.propTypes = {
+Brands.propTypes = {
   brand: React.PropTypes.string
 };
-Cars.defaultProps = { brand: 'Volvo' };
+Brands.defaultProps = { brand: 'Volvo' };
+
+export const Cars = ({ cars = [], ready }) => (
+  <ul className={["cars", ready ? "ready" : ""].join(' ')}>
+    {cars.map((car, i) =>
+      <li className="car" key={i}>{car.brand} {car.model}</li>
+    )}
+  </ul>
+);
+
+if (Meteor.isClient) {
+  ReactDOM.render(<Brands><Cars /></Brands>, document.body);
+}
 
 ```
 
@@ -252,6 +214,63 @@ Add `Meteor._sleepForMs(2000);` in the publication to get view of the beautiful 
   opacity: 0;
   transition: none;
 }
+
+```
+
+### Add Server Side Rendering
+
+First off, remove the rendering to DOM from `main.jsx`:
+
+```javascript
+if (Meteor.isClient) {
+  ReactDOM.render(<Brands><Cars /></Brands>, document.body);
+}
+```
+
+Add some packages, both Meteor and NPM.
+
+`meteor add kadira:flow-router-ssr`  
+`npm i --save react-mounter` (for React 0.14.7)
+
+If you prefer React 15.x you can use react-mount-layout for that, a fork of react-mounter:
+`npm i --save react-mount-layout@^15.x` (for React 15.x, will replace with *react-mounter* when supporting React 15.x)
+
+```javascript
+// router.jsx
+
+import React from 'react';
+import { FlowRouter } from 'meteor/kadira:flow-router-ssr';
+
+const MainLayout = ({content}) => (
+  <main>{content}</main>
+);
+
+FlowRouter.route("/", {
+  action() {
+    ReactLayout.render(MainLayout, {
+      content: <Cars />
+    });
+  }
+});
+
+```
+
+#### Result on the server:
+
+```html
+
+<main>
+  <ul class="cars">
+    <li>Volvo XC90</li>
+    <li>Volvo V90</li>
+    <li>Volvo V70</li>
+    <li>Tesla Model S</li>
+    <li>Tesla Model X</li>
+    <li>Tesla Model 3</li>
+    <li>Tesla Roadster</li>
+    <li>DeLorean DMC-12</li>
+  </ul>
+</main>
 
 ```
 
