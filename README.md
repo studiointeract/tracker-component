@@ -5,8 +5,9 @@ Current version 1.3.11
 ## Features
 
 1. **Easy to use**, manages Tracker for you using autorun, and your subscriptions using the subscribe method, you don't have to manually setup the reactivity bindings or start/stop subscriptions, we promise!
-2. **Server Side Rendering** supported (with data trough FlowRouter SSR).
-3. **Lightweight** implementation, just see the implementation in `./lib/tracker-component.jsx`, there's no magic going on behind the scenes, only **50 lines of code**.
+3. **Subscriptions** are managed through the built in `this.subscribe` and ensured your subscriptions are stopped when no more needed.
+4. **Server Side Rendering** supported (with data trough FlowRouter SSR).
+5. **Lightweight** implementation, just see the implementation in `./lib/tracker-component.jsx`, there's no magic going on behind the scenes, only **50 lines of code**.
 
 **Tracker.Component** is an improvement to what other methods offer ([see comparison](#comparison)). Using Tracker.Component you are no longer required to "freeze" all your reactivity in a single method or composition. You set the state from the reactive data sources (e.g: `collection.find().fetch()` or `Session.get('foo')` in `this.autorun`, which is also reactive to changes in `this.props` or `this.state`. Have fun!
 
@@ -34,7 +35,7 @@ import Tracker from 'tracker-component';
 
 Models = new Mongo.Collection('models');
 if (Meteor.isServer) {
-  Meteor.publish('cars', () =>Models.find());
+  Meteor.publish('cars', () => Models.find());
 }
 
 class Cars extends Tracker.Component {
