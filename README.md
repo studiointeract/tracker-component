@@ -516,16 +516,20 @@ With Composition in React we mean the method to split up data management and pur
 
 Composition can be achieved with known methods (createContainer, TrackerReact and react-komposer) by passing your data management function to the compostion method which resolves in a method that takes your Component as an argument.
 
-With Tracker.Component this can be achivieved with:
+With Tracker.Component this can be achivieved with (full example):
 
 ```javascript
+// main.jsx
+
+import React from 'react';
+import Tracker from 'tracker-component';
 
 Models = new Mongo.Collection('models');
 if (Meteor.isServer) {
   Meteor.publish('cars', brand => Models.find({ brand: brand }));
 }
 
-class Composition extends React.Component {
+class Composition extends Tracker.Component {
   constructor(props) {
     super(props);
     this.subscribe('cars', this.props.brand);
