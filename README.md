@@ -463,9 +463,9 @@ Cars.defaultProps = { brand: 'Volvo' };
 
 ## Server Side Rendering
 
-To get the Server to render your component with prefilled data, you'll need to have the data do with known methods (ReactMeteorData, createContainer and TrackerReact) to manually load that data specific for the server, this method will potentially show you more data then the client expects and React will complain when you the client version takes over. 
+To get the server to render your component with prefilled data, you will need to have that data with known methods (ReactMeteorData, createContainer and TrackerReact) to manually load specific for the server, this method can potentially render more data then the client expected from a subscription and React will definitely complain when the client version takes over.
 
-The reason is that you have to match up the selectors for find() with the current subscription. With Tracker.Component which have subscription support built in, you set these up in the constructor together with your find().fetch() on the collections, this ensures the data available is equal on both server/client.
+The issue is that you have to match up the selectors for find() with the current subscription. With Tracker.Component which has subscription support built in, you setup these in the constructor together with your find() for the collection, this ensures the data available is equally specified on both server and client.
 
 ## Subscriptions
 
