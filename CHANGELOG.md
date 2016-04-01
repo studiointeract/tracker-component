@@ -1,7 +1,7 @@
 # ChangeLog
 
 ### v1.3.3-11
-27-March-2016
+27 - 30-March-2016
 
 * Simplified code and features.
 
