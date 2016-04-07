@@ -1,32 +1,26 @@
 import React from 'react';
 
-let Tracker = null;
-if (!Package['tracker']) {
-  throw new Error('Tracker is required for Tracker.Component (add it with: `meteor add tracker`).');
-} else {
-  Tracker = Package['tracker'].Tracker;
-}
-
 Tracker.Component = class extends React.Component {
   constructor(props) {
     super(props);
-    this.__subs = [], this.__comps = [];
+    this.__subs = {}, this.__comps = [];
     this.__subscribe = props.subscribe || Meteor.subscribe;
     this.__running = false;
+    this.__cacheTimeout = 20000; // ms
   }
 
   subscribe(name, ...options) {
-    return this.__subs.push(this.__subscribe.apply(this, [name, ...options]));
+    return this.__subs[JSON.stringify(arguments)] = this.__subscribe.apply(this, [name, ...options]);
   }
 
   autorun(fn) {
-    return this.__comps.push(Tracker.autorun(() => {
+    return this.__comps.push(Tracker.autorun(c => {
       this.__running = true; fn(); this.__running = false;
     }));
   }
 
   subscriptionsReady() {
-    return !this.__subs.some(sub => !sub.ready());
+    return !Object.keys(this.__subs).some(id => !this.__subs[id].ready());
   }
 
   setState(state) {
@@ -37,13 +31,16 @@ Tracker.Component = class extends React.Component {
     }
   }
 
-  componentWillUpdate() {
-    !this.__running && this.__comps.forEach(comp => !comp.invalidate());
+  componentWillUnmount() {
+    setTimeout(() => {
+      this.__comps.forEach(comp => { comp.stop(); comp = null });
+    }, this.__cacheTimeout);
   }
 
-  componentWillUnmount() {
-    this.__subs.forEach(sub => sub.stop());
-    this.__comps.forEach(comp => comp.stop());
+  componentWillUpdate() {
+    if (!this.__running) {
+      this.__comps.forEach(comp => !comp.invalidate());
+    }
   }
 
   render() {
