@@ -1,6 +1,6 @@
 Package.describe({
   name: 'std:tracker-component',
-  version: '1.3.13',
+  version: '1.3.14',
   summary: 'Easy reactive React Components with Meteor and Tracker',
   git: 'https://github.com/studiointeract/tracker-component',
   documentation: 'README.md'

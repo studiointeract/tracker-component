@@ -1,6 +1,6 @@
 # Tracker.Component
 
-Current version 1.3.13
+Current version 1.3.14
 
 ## Features
 

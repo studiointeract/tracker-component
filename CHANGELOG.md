@@ -1,5 +1,10 @@
 # ChangeLog
 
+### v1.3.12-14
+1 - 7-April-2016
+
+* Simplified and added cacheTimeout.
+
 ### v1.3.3-11
 27 - 30-March-2016
 
