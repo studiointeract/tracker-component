@@ -3,49 +3,42 @@ import React from 'react';
 Tracker.Component = class extends React.Component {
   constructor(props) {
     super(props);
-    this.__subs = {}, this.__comps = [];
+    this.__subs = {}, this.__comps = []; this.__live = false;
     this.__subscribe = props.subscribe || Meteor.subscribe;
-    this.__running = false;
-    this.__cacheTimeout = 20000; // ms
   }
 
   subscribe(name, ...options) {
-    return this.__subs[JSON.stringify(arguments)] = this.__subscribe.apply(this, [name, ...options]);
+    return this.__subs[JSON.stringify(arguments)] =
+      this.__subscribe.apply(this, [name, ...options]);
   }
 
-  autorun(fn) {
-    return this.__comps.push(Tracker.autorun(c => {
-      this.__running = true; fn(); this.__running = false;
-    }));
-  }
+  autorun(fn) { this.__comps.push(Tracker.autorun(c => {
+    this.__live = true; fn(); this.__live = false;
+  }))}
+
+  componentDidUpdate() { !this.__live && this.__comps.forEach(c => {
+    c.invalidated = c.stopped = false; !c.invalidate();
+  })}
 
   subscriptionsReady() {
     return !Object.keys(this.__subs).some(id => !this.__subs[id].ready());
   }
 
   setState(state) {
-    if (!this._reactInternalInstance) {
+    if (!this._reactInternalInstance)
       return this.state = Object.assign({}, this.state, state);
-    } else {
+    else
       return super.setState.apply(this, arguments);
-    }
   }
 
   componentWillUnmount() {
-    setTimeout(() => {
-      this.__comps.forEach(comp => { comp.stop(); comp = null });
-    }, this.__cacheTimeout);
-  }
-
-  componentWillUpdate() {
-    if (!this.__running) {
-      this.__comps.forEach(comp => !comp.invalidate());
-    }
+    Object.keys(this.__subs).forEach(sub => this.__subs[sub].stop());
+    this.__comps.forEach(comp => comp.stop());
   }
 
   render() {
-    let composition = this.props.children.map(Child => <Child {...this.state} />);
-    return composition.length == 1 ? composition : <div>{composition}</div>;
+    let comp = this.props.children.map(Child => <Child {...this.state} />);
+    return comp.length == 1 ? comp : <div>{comp}</div>;
   }
 };
 
