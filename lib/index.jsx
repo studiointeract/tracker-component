@@ -1,4 +1,7 @@
 import React from 'react';
+let Tracker; if (!Package['tracker'])
+  throw new Error('Tracker is required for Tracker.Component (add it with: `meteor add tracker`).');
+else Tracker = Package['tracker'].Tracker;
 
 Tracker.Component = class extends React.Component {
   constructor(props) {
