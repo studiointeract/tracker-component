@@ -1,6 +1,11 @@
 # ChangeLog
 
-### v1.3.15
+### v1.3.17
+9-May-2016
+
+* Fixed #11
+
+### v1.3.15-16
 11-April-2016
 
 * Fixed an issue with computations never being stopped at all.
