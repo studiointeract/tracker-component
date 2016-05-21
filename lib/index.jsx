@@ -11,7 +11,11 @@ Tracker.Component = class extends React.Component {
   }
 
   subscribe(name, ...options) {
-    return this.__subs[JSON.stringify(arguments)] =
+    if (this.__subs[arguments[0]]) {
+      this.__subs[arguments[0]].stop()
+      delete this.__subs[arguments[0]]
+    }
+    return this.__subs[arguments[0]] =
       this.__subscribe.apply(this, [name, ...options]);
   }
 
