@@ -40,7 +40,8 @@ Tracker.Component = class extends React.Component {
   }
 
   render() {
-    let comp = this.props.children.map(Child => <Child {...this.state} />);
+    const { children } = this.props;
+    const comp = (children instanceof Array ? children : [children]).map(Child => <Child {...this.state} />);
     return comp.length == 1 ? comp : <div>{comp}</div>;
   }
 };
