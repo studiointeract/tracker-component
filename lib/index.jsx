@@ -15,8 +15,8 @@ Tracker.Component = class extends React.Component {
       this.__subscribe.apply(this, [name, ...options]);
   }
 
-  autorun(fn) { this.__comps.push(Tracker.autorun(c => {
-    this.__live = true; fn(); this.__live = false;
+  autorun(fn) { return this.__comps.push(Tracker.autorun(c => {
+    this.__live = true; fn(c); this.__live = false;
   }))}
 
   componentDidUpdate() { !this.__live && this.__comps.forEach(c => {
