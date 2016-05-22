@@ -1,5 +1,10 @@
 # ChangeLog
 
+### v1.3.19-21
+22-May-2016
+
+* Bugfix to support single child elements.
+
 ### v1.3.18
 22-May-2016
 

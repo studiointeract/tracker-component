@@ -41,8 +41,8 @@ Tracker.Component = class extends React.Component {
 
   render() {
     const { children } = this.props;
-    const comp = (children instanceof Array ? children : [children]).map(Child => <Child {...this.state} />);
-    return comp.length == 1 ? comp : <div>{comp}</div>;
+    const comp = (children instanceof Array ? children : [children]).map(c => React.cloneElement(c, this.state));
+    return comp.length == 1 ? comp[0] : <div>{comp}</div>;
   }
 };
 
