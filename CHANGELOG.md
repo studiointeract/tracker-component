@@ -1,5 +1,10 @@
 # ChangeLog
 
+### v1.3.18
+22-May-2016
+
+* Adding missing mechanism to stop tracking.
+
 ### v1.3.17
 9-May-2016
 

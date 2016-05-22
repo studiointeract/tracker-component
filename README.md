@@ -1,6 +1,6 @@
 # Tracker.Component
 
-Current version 1.3.17
+Current version 1.3.18
 
 ## Features
 
@@ -607,6 +607,34 @@ if (Meteor.isClient) {
 ## Mixin
 
 Mixins are a method of previous versions of React, we used them to extend the components with extra features on top, the new way to achive the same functionality is through [Composition](#composition) or [Class Inheritance](#class-inheritance). Don't forget to read the article on Mixins by Dan Abramov, [Mixins Are Dead. Long Live Composition](https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750#.l18k55fdx).
+
+## Stopping computations
+
+Usually you don't need to stop the computation as it will automatically will be
+stopped when the component is destroyed, though notice that if you re-implement
+componentWillUnmount, be sure to call the super implementation as noticed below.
+
+> Supported from version 1.3.18.
+
+### Alt 1: Stopping by reference.
+
+Use the returned reference to the computation and stop it from there.
+
+```js
+const comp = this.autorun(() => {});
+comp.stop();
+```
+
+### Alt 2: Stopping from inside the autorun.
+
+You can always just pick up the reference to the computation passed in the
+arguments of your autorun implementation and stop it.
+
+```js
+const comp = this.autorun(c => {
+  c.stop();
+});
+```
 
 ## Notes
 
