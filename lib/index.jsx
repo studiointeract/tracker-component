@@ -15,9 +15,13 @@ Tracker.Component = class extends React.Component {
       this.__subscribe.apply(this, [name, ...options]);
   }
 
-  autorun(fn) { return this.__comps.push(Tracker.autorun(c => {
-    this.__live = true; fn(c); this.__live = false;
-  }))}
+  autorun(fn) {
+    const computation = Tracker.autorun(c => {
+      this.__live = true; fn(c); this.__live = false;
+    })
+    this.__comps.push(computation)
+    return computation
+  }
 
   componentDidUpdate() { !this.__live && this.__comps.forEach(c => {
     c.invalidated = c.stopped = false; !c.invalidate();
